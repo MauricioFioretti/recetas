@@ -1,5 +1,6 @@
 // ================== CONFIG ==================
-const API_URL = "https://script.google.com/macros/s/AKfycbx6s74ZBCD2fpntP79r1negor4X_pwztyMCN2mxlr3MmpRNYKxcPRiS-7eT0rJxx1l3jQ/exec"
+//const API_URL = "https://script.google.com/macros/s/AKfycbx6s74ZBCD2fpntP79r1negor4X_pwztyMCN2mxlr3MmpRNYKxcPRiS-7eT0rJxx1l3jQ/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbx0U0vrNAObl8naj9TJTnj9ZtX5Kj52WO-6dVYCo2_UrFtaXA4WGPKm7VmmqaWRc9UNMQ/exec"
 
 // ================== HEADER: TÍTULO ==================
 const header = document.querySelector("header")
@@ -95,7 +96,7 @@ async function cargarRecetasDesdeAPI() {
   }
 }
 
-// Agregar receta nueva a la hoja
+// Agregar receta nueva a la hoja (vía formulario x-www-form-urlencoded)
 async function agregarRecetaAPI(titulo, textoLista) {
   const tituloLimpio = titulo.trim()
   const textoLimpio = textoLista.trim()
@@ -108,13 +109,15 @@ async function agregarRecetaAPI(titulo, textoLista) {
   items = items.map(t => t.trim()).filter(t => t !== "")
   if (!items.length) return
 
-  const body = { titulo: tituloLimpio, items }
+  // Usamos URLSearchParams para evitar problemas de CORS
+  const formData = new URLSearchParams()
+  formData.append("titulo", tituloLimpio)
+  items.forEach(item => formData.append("items", item))
 
   try {
     await fetch(API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
+      body: formData          // sin headers manuales
     })
 
     await cargarRecetasDesdeAPI()
@@ -122,6 +125,7 @@ async function agregarRecetaAPI(titulo, textoLista) {
     console.error("Error al agregar receta", err)
   }
 }
+
 
 // ================== EVENTOS ==================
 
