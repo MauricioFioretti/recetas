@@ -59,7 +59,7 @@ main.appendChild(muralRecetas)
 // Cargar recetas desde Google Sheets (vía Apps Script)
 async function cargarRecetasDesdeAPI() {
   try {
-    const resp = await fetch(API_URL)
+    const resp = await fetch(API_URL)          // modo "lista"
     const recetas = await resp.json()
 
     muralRecetas.innerHTML = ""
@@ -87,7 +87,6 @@ async function cargarRecetasDesdeAPI() {
       })
       card.appendChild(ul)
 
-      // ❌ No ponemos botón eliminar para que nadie borre cosas desde la web
       muralRecetas.appendChild(card)
     })
   } catch (err) {
@@ -95,7 +94,7 @@ async function cargarRecetasDesdeAPI() {
   }
 }
 
-// Agregar receta nueva a la hoja (vía formulario x-www-form-urlencoded)
+// Agregar receta nueva a la hoja (usando GET con modo=add)
 async function agregarRecetaAPI(titulo, textoLista) {
   const tituloLimpio = titulo.trim()
   const textoLimpio = textoLista.trim()
@@ -108,24 +107,19 @@ async function agregarRecetaAPI(titulo, textoLista) {
   items = items.map(t => t.trim()).filter(t => t !== "")
   if (!items.length) return
 
-  const body = {
-    titulo: tituloLimpio,
-    items: items
-  }
+  // mandamos los datos como query string
+  const url = API_URL
+    + "?modo=add"
+    + "&titulo=" + encodeURIComponent(tituloLimpio)
+    + "&items=" + encodeURIComponent(JSON.stringify(items))
 
   try {
-    await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
-
+    await fetch(url)        // GET
     await cargarRecetasDesdeAPI()
   } catch (err) {
     console.error("Error al agregar receta", err)
   }
 }
-
 
 // ================== EVENTOS ==================
 
