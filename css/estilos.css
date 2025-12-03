@@ -1,0 +1,159 @@
+/* ======= BASE ======= */
+:root {
+  --yt-bg: #0f0f0f;
+  --yt-surface: #212121;
+  --yt-surface-2: #181818;
+  --yt-border: #3d3d3d;
+  --yt-text: #fff;
+  --yt-text-muted: #aaaaaa;
+  --yt-accent: #3ea6ff;
+  --yt-btn: #272727;
+  --yt-btn-hover: #3f3f3f;
+  --yt-danger: #cc0000;
+}
+
+body {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--yt-bg);
+  color: var(--yt-text);
+  font-family: Arial, sans-serif;
+}
+
+/* ======= HEADER / TÍTULO ======= */
+.titulo {
+  margin-bottom: 1.5rem;
+}
+.titulo h1 {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* ======= SECCIÓN AGREGAR RECETA ======= */
+.agregarReceta {
+  background: var(--yt-surface);
+  padding: 1.2rem 1.3rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.agregarReceta label {
+  color: var(--yt-text);
+  font-size: 0.95rem;
+}
+
+.agregarReceta input,
+.agregarReceta textarea {
+  background: #0f0f0f;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  padding: 6px 8px;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.agregarReceta textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ======= BOTONES ======= */
+button {
+  background: var(--yt-btn);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.02);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background: var(--yt-btn-hover);
+}
+
+button:active {
+  background: #4d4d4d;
+  transform: scale(0.995);
+}
+
+/* Botón principal (agregar receta) */
+.agregarReceta button {
+  align-self: flex-start;
+  background: #3ea6ff;
+  color: #000;
+  border: none;
+}
+.agregarReceta button:hover {
+  background: #67b8ff;
+}
+
+/* Botón eliminar receta */
+.btn-eliminar-receta {
+  margin-top: 0.6rem;
+  background: var(--yt-danger);
+  border: none;
+}
+.btn-eliminar-receta:hover {
+  background: #ff3b3b;
+}
+
+/* ======= MURAL DE RECETAS ======= */
+.mural-recetas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Bloque / card de cada receta */
+.receta-card {
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Alternar colores para distinguir recetas */
+.receta-oscura {
+  background: var(--yt-surface-2);
+}
+.receta-clara {
+  background: var(--yt-surface);
+}
+
+.receta-card h2 {
+  margin: 0 0 0.6rem 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.receta-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.receta-card li {
+  margin-bottom: 0.15rem;
+  font-size: 0.95rem;
+  color: var(--yt-text);
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .agregarReceta {
+    padding: 1rem;
+  }
+
+  .receta-card {
+    padding: 0.9rem 1rem;
+  }
+}
