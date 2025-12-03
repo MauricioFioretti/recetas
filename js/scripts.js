@@ -109,15 +109,16 @@ async function agregarRecetaAPI(titulo, textoLista) {
   items = items.map(t => t.trim()).filter(t => t !== "")
   if (!items.length) return
 
-  // Usamos URLSearchParams para evitar problemas de CORS
-  const formData = new URLSearchParams()
-  formData.append("titulo", tituloLimpio)
-  items.forEach(item => formData.append("items", item))
+  const body = {
+    titulo: tituloLimpio,
+    items: items
+  }
 
   try {
     await fetch(API_URL, {
       method: "POST",
-      body: formData          // sin headers manuales
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
     })
 
     await cargarRecetasDesdeAPI()
