@@ -1,5 +1,4 @@
 // ================== CONFIG ==================
-//const API_URL = "https://script.google.com/macros/s/AKfycbx6s74ZBCD2fpntP79r1negor4X_pwztyMCN2mxlr3MmpRNYKxcPRiS-7eT0rJxx1l3jQ/exec"
 const API_URL = "https://script.google.com/macros/s/AKfycbx0U0vrNAObl8naj9TJTnj9ZtX5Kj52WO-6dVYCo2_UrFtaXA4WGPKm7VmmqaWRc9UNMQ/exec"
 
 // ================== HEADER: TÍTULO ==================
