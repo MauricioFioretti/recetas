@@ -148,7 +148,7 @@ button:active {
   font-weight: 600;
   letter-spacing: 0.03em;
   font-size: 1.1rem;
-  color: #3a7bbf; /* azul oscuro elegante */
+  color: #3a7bbf !important; /* azul oscuro elegante */
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -160,13 +160,13 @@ button:active {
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #2e5e8f; /* azul aún más oscuro */
-  box-shadow: 0 0 6px rgba(46, 94, 143, 0.6); /* brillo leve */
+  background: #2e5e8f !important; /* azul aún más oscuro */
+  box-shadow: 0 0 6px rgba(46, 94, 143, 0.6) !important; /* brillo leve */
 }
 
 /* Efecto sutil al pasar el mouse */
 .receta-card:hover h2 {
-  color: #5da6e6; /* azul un poco más luminoso */
+  color: #5da6e6 !important; /* azul un poco más luminoso */
   transform: translateX(2px);
 } 
 
