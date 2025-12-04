@@ -87,6 +87,27 @@ async function cargarRecetasDesdeAPI() {
       })
       card.appendChild(ul)
 
+      // ----- BOTÓN COPIAR -----
+        const btnCopiar = document.createElement("button")
+        btnCopiar.innerText = "Copiar receta"
+        btnCopiar.classList.add("btn-copiar-receta")
+
+        btnCopiar.addEventListener("click", () => {
+        
+        // Armamos el texto a copiar
+        const texto = receta.titulo + "\n\n" + receta.items.join("\n")
+
+        navigator.clipboard.writeText(texto)
+            .then(() => {
+            btnCopiar.innerText = "¡Copiado!"
+            setTimeout(() => btnCopiar.innerText = "Copiar receta", 1500)
+            })
+            .catch(() => alert("No se pudo copiar 😢"))
+        })
+
+        card.appendChild(btnCopiar)
+
+
       muralRecetas.appendChild(card)
     })
   } catch (err) {

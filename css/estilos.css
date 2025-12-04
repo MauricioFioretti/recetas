@@ -143,6 +143,27 @@ button:active {
   color: var(--yt-text);
 }
 
+.btn-copiar-receta {
+  margin-top: 0.8rem;
+  background: #3ea6ff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn-copiar-receta:hover {
+  background: #6fbeff;
+}
+
+.btn-copiar-receta:active {
+  transform: scale(0.96);
+}
+
+
 /* ====== RESPONSIVO ====== */
 @media (max-width: 600px) {
   body {
