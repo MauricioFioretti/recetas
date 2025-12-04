@@ -168,7 +168,7 @@ button:active {
 .receta-card:hover h2 {
   color: #5da6e6; /* azul un poco más luminoso */
   transform: translateX(2px);
-}
+} 
 
 .receta-card ul {
   margin: 0;
