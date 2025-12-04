@@ -145,24 +145,25 @@ button:active {
 
 .btn-copiar-receta {
   margin-top: 0.8rem;
-  background: #3ea6ff;
+  background: #2ecc71;          /* Verde lindo */
   color: #000;
   border: none;
   border-radius: 6px;
   padding: 6px 12px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 600;
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .btn-copiar-receta:hover {
-  background: #6fbeff;
+  background: #58d68d;          /* Verde más claro */
 }
 
 .btn-copiar-receta:active {
+  background: #28b463;          /* Verde oscuro */
   transform: scale(0.96);
 }
-
 
 /* ====== RESPONSIVO ====== */
 @media (max-width: 600px) {
