@@ -20,6 +20,15 @@ body {
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* ======= Autor ======= */
+.autor-receta {
+  font-size: 0.85rem;
+  color: #bbbbbb;
+  margin-top: -0.3rem;
+  margin-bottom: 0.6rem;
+  opacity: 0.8;
+}
+
 /* ======= HEADER / TÍTULO ======= */
 .titulo {
   margin-bottom: 1.8rem;

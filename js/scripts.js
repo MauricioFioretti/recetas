@@ -32,6 +32,19 @@ inputTitulo.id = "titulo-receta"
 inputTitulo.placeholder = "Ej: Tarta de atún"
 seccionAgregar.appendChild(inputTitulo)
 
+// Campo: autor de la receta
+const labelAutor = document.createElement("label")
+labelAutor.innerText = "Autor:"
+labelAutor.htmlFor = "autor-receta"
+seccionAgregar.appendChild(labelAutor)
+
+const inputAutor = document.createElement("input")
+inputAutor.type = "text"
+inputAutor.id = "autor-receta"
+inputAutor.placeholder = "Ej: Mauricio"
+seccionAgregar.appendChild(inputAutor)
+
+
 // Campo: lista de ingredientes / pasos
 const labelLista = document.createElement("label")
 labelLista.innerText = "Ingredientes / pasos (uno por línea o separados por comas):"
@@ -78,6 +91,11 @@ async function cargarRecetasDesdeAPI() {
       const titulo = document.createElement("h2")
       titulo.innerText = receta.titulo
       card.appendChild(titulo)
+
+      const autor = document.createElement("p")
+      autor.classList.add("autor-receta")
+      autor.innerText = "Autor: " + (receta.autor || "Sin autor")
+      card.appendChild(autor)
 
       const ul = document.createElement("ul")
       receta.items.forEach(textoItem => {
@@ -129,10 +147,13 @@ async function agregarRecetaAPI(titulo, textoLista) {
   if (!items.length) return
 
   // mandamos los datos como query string
+  const autorLimpio = (inputAutor.value || "Anónimo").trim()
+
   const url = API_URL
-    + "?modo=add"
-    + "&titulo=" + encodeURIComponent(tituloLimpio)
-    + "&items=" + encodeURIComponent(JSON.stringify(items))
+      + "?modo=add"
+      + "&titulo=" + encodeURIComponent(tituloLimpio)
+      + "&autor=" + encodeURIComponent(autorLimpio)
+      + "&items=" + encodeURIComponent(JSON.stringify(items))
 
   try {
     await fetch(url)        // GET
@@ -149,6 +170,7 @@ buttonAgregar.addEventListener("click", () => {
   agregarRecetaAPI(inputTitulo.value, textareaLista.value)
   inputTitulo.value = ""
   textareaLista.value = ""
+  inputAutor.value = ""
   inputTitulo.focus()
 })
 
