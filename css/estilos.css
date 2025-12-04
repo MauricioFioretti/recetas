@@ -178,7 +178,7 @@ button:active {
   margin-bottom: 0.15rem;
   font-size: 0.95rem;
   color: var(--yt-text);
-}
+} 
 
 .mural-recetas .receta-card .btn-copiar-receta {
   margin-top: 0.8rem;
