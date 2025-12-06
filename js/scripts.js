@@ -57,6 +57,18 @@ textareaLista.rows = 5
 textareaLista.placeholder = "Ej:\n2 huevos\n1 taza de leche\n1 pizca de sal"
 seccionAgregar.appendChild(textareaLista)
 
+// Campo: instrucciones de preparación (opcional)
+const labelPrep = document.createElement("label")
+labelPrep.innerText = "Instrucciones de preparación (opcional):"
+labelPrep.htmlFor = "prep-receta"
+seccionAgregar.appendChild(labelPrep)
+
+const textareaPreparacion = document.createElement("textarea")
+textareaPreparacion.id = "prep-receta"
+textareaPreparacion.rows = 4
+textareaPreparacion.placeholder = "Ej:\n1) Mezclá todo...\n2) Llevá al horno 40 min...\n(este campo es opcional)"
+seccionAgregar.appendChild(textareaPreparacion)
+
 // Botón: agregar receta
 const buttonAgregar = document.createElement("button")
 buttonAgregar.innerText = "Agregar receta"
@@ -105,6 +117,28 @@ async function cargarRecetasDesdeAPI() {
       })
       card.appendChild(ul)
 
+      // Bloque de preparación (si viene desde la API)
+      if (receta.preparacion && receta.preparacion.trim() !== "") {
+        const subtituloPrep = document.createElement("h3")
+        subtituloPrep.classList.add("prep-titulo")
+        subtituloPrep.innerText = "Preparación"
+        card.appendChild(subtituloPrep)
+
+        const ol = document.createElement("ol")
+        ol.classList.add("prep-lista")
+
+        // cada línea de la preparación como un paso
+        const pasos = receta.preparacion.split("\n").map(p => p.trim()).filter(p => p !== "")
+        pasos.forEach(pasoTexto => {
+          const liPaso = document.createElement("li")
+          liPaso.innerText = pasoTexto
+          ol.appendChild(liPaso)
+        })
+
+        card.appendChild(ol)
+      }
+
+
       // ----- BOTÓN COPIAR -----
         const btnCopiar = document.createElement("button")
         btnCopiar.innerText = "Copiar receta"
@@ -133,10 +167,43 @@ async function cargarRecetasDesdeAPI() {
   }
 }
 
+// // Agregar receta nueva a la hoja (usando GET con modo=add)
+// async function agregarRecetaAPI(titulo, textoLista) {
+//   const tituloLimpio = titulo.trim()
+//   const textoLimpio = textoLista.trim()
+//   if (!tituloLimpio || !textoLimpio) return
+
+//   let items = textoLimpio.includes("\n")
+//     ? textoLimpio.split("\n")
+//     : textoLimpio.split(",")
+
+//   items = items.map(t => t.trim()).filter(t => t !== "")
+//   if (!items.length) return
+
+//   // mandamos los datos como query string
+//   const autorLimpio = (inputAutor.value || "Anónimo").trim()
+
+//   const url = API_URL
+//       + "?modo=add"
+//       + "&titulo=" + encodeURIComponent(tituloLimpio)
+//       + "&autor=" + encodeURIComponent(autorLimpio)
+//       + "&items=" + encodeURIComponent(JSON.stringify(items))
+
+//   try {
+//     await fetch(url)        // GET
+//     await cargarRecetasDesdeAPI()
+//   } catch (err) {
+//     console.error("Error al agregar receta", err)
+//   }
+// }
+
 // Agregar receta nueva a la hoja (usando GET con modo=add)
 async function agregarRecetaAPI(titulo, textoLista) {
   const tituloLimpio = titulo.trim()
   const textoLimpio = textoLista.trim()
+  const autorLimpio = (inputAutor.value || "Anónimo").trim()
+  const prepLimpia  = (textareaPreparacion.value || "").trim()   // 👈 NUEVO
+
   if (!tituloLimpio || !textoLimpio) return
 
   let items = textoLimpio.includes("\n")
@@ -146,14 +213,13 @@ async function agregarRecetaAPI(titulo, textoLista) {
   items = items.map(t => t.trim()).filter(t => t !== "")
   if (!items.length) return
 
-  // mandamos los datos como query string
-  const autorLimpio = (inputAutor.value || "Anónimo").trim()
-
+  // armamos la URL con los datos
   const url = API_URL
-      + "?modo=add"
-      + "&titulo=" + encodeURIComponent(tituloLimpio)
-      + "&autor=" + encodeURIComponent(autorLimpio)
-      + "&items=" + encodeURIComponent(JSON.stringify(items))
+    + "?modo=add"
+    + "&titulo=" + encodeURIComponent(tituloLimpio)
+    + "&autor="  + encodeURIComponent(autorLimpio)
+    + "&items="  + encodeURIComponent(JSON.stringify(items))
+    + "&prep="   + encodeURIComponent(prepLimpia)   // 👈 NUEVO (puede ir vacío)
 
   try {
     await fetch(url)        // GET
@@ -163,7 +229,17 @@ async function agregarRecetaAPI(titulo, textoLista) {
   }
 }
 
+
 // ================== EVENTOS ==================
+
+// // Click en "Agregar receta"
+// buttonAgregar.addEventListener("click", () => {
+//   agregarRecetaAPI(inputTitulo.value, textareaLista.value)
+//   inputTitulo.value = ""
+//   textareaLista.value = ""
+//   inputAutor.value = ""
+//   inputTitulo.focus()
+// })
 
 // Click en "Agregar receta"
 buttonAgregar.addEventListener("click", () => {
@@ -171,8 +247,10 @@ buttonAgregar.addEventListener("click", () => {
   inputTitulo.value = ""
   textareaLista.value = ""
   inputAutor.value = ""
+  textareaPreparacion.value = ""   // 👈 NUEVO
   inputTitulo.focus()
 })
+
 
 // Enter en título -> pasa al textarea
 inputTitulo.addEventListener("keydown", function (event) {

@@ -190,6 +190,24 @@ button:active {
   color: var(--yt-text);
 } 
 
+.prep-titulo {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #dddddd;
+}
+
+.prep-lista {
+  margin: 0.3rem 0 0.2rem 1.2rem;
+  padding-left: 1rem;
+}
+
+.prep-lista li {
+  margin-bottom: 0.15rem;
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
 .mural-recetas .receta-card .btn-copiar-receta {
   margin-top: 0.8rem;
   background: #2ecc71 !important;  /* Verde lindo */
