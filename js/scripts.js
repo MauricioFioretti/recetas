@@ -140,24 +140,29 @@ async function cargarRecetasDesdeAPI() {
 
 
       // ----- BOTÓN COPIAR -----
-        const btnCopiar = document.createElement("button")
-        btnCopiar.innerText = "Copiar receta"
-        btnCopiar.classList.add("btn-copiar-receta")
+      const btnCopiar = document.createElement("button")
+      btnCopiar.innerText = "Copiar receta"
+      btnCopiar.classList.add("btn-copiar-receta")
 
-        btnCopiar.addEventListener("click", () => {
-        
-        // Armamos el texto a copiar
-        const texto = receta.titulo + "\n\n" + receta.items.join("\n")
+      btnCopiar.addEventListener("click", () => {
+        // Ingredientes
+        let texto = receta.titulo + "\n\n" + receta.items.join("\n")
+
+        // Si hay preparación, la agregamos también
+        if (receta.preparacion && receta.preparacion.trim() !== "") {
+          texto += "\n\nPreparación:\n" + receta.preparacion.trim()
+        }
 
         navigator.clipboard.writeText(texto)
-            .then(() => {
+          .then(() => {
             btnCopiar.innerText = "¡Copiado!"
             setTimeout(() => btnCopiar.innerText = "Copiar receta", 1500)
-            })
-            .catch(() => alert("No se pudo copiar 😢"))
-        })
+          })
+          .catch(() => alert("No se pudo copiar 😢"))
+      })
 
-        card.appendChild(btnCopiar)
+      card.appendChild(btnCopiar)
+
 
 
       muralRecetas.appendChild(card)
