@@ -140,23 +140,23 @@ main {
 
 /* ======= BOTONES ======= */
 button {
-  background: var(--yt-btn);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.02);
-  border-radius: 6px;
-  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: var(--yt-text);
+  border-radius: 12px;
+  padding: 10px 12px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.15s ease, transform 0.1s ease;
+  font-size: .92rem;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
 }
 
 button:hover {
-  background: var(--yt-btn-hover);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.14);
 }
 
 button:active {
-  background: #4d4d4d;
-  transform: scale(0.995);
+  transform: translateY(1px);
 }
 
 /* Botón principal (agregar receta) */
@@ -288,14 +288,31 @@ button:active {
     padding: 1rem;
   }
 
-  .agregarReceta {
-    padding: 1rem;
+  /* ===== Ajuste estético header (mobile) ===== */
+  header {
+    padding: 1rem 1rem 0.9rem 1rem;
   }
 
-  .receta-card {
-    padding: 0.9rem 1rem;
+  .titulo {
+    gap: 0.6rem;
+  }
+
+  /* TÍTULO más protagonista (solo mobile) */
+  .titulo h1 {
+    font-size: clamp(2.05rem, 9vw, 2.65rem);
+    letter-spacing: clamp(0.10em, 1.4vw, 0.18em);
+    line-height: 1.02;
+  }
+
+  header .header-actions .btn-connect {
+    padding: 8px 12px !important;
+    font-size: 0.92rem !important;
+    min-height: 38px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
   }
 }
+
 /* ======= HEADER: ESTADO + ACCIONES (OAuth) ======= */
 .header-row-2 {
   width: 100%;
@@ -365,15 +382,19 @@ button:active {
 
 .btn-connect {
   width: 100%;
-  background: #3ea6ff;
-  color: #000;
-  border: none;
+  background: linear-gradient(180deg, var(--yt-accent), rgba(62, 166, 255, 0.82));
+  color: #041018;
+  border: 0;
   border-radius: 12px;
   padding: 12px 14px;
   min-height: 44px;
   font-size: 1rem;
+  font-weight: 600; /* <-- esto es lo que te engrosa la letra como en Notas */
 }
-.btn-connect:hover { background: #67b8ff; }
+
+.btn-connect:hover {
+  background: linear-gradient(180deg, #67b8ff, rgba(103, 184, 255, 0.90));
+}
 
 .btn-refresh {
   width: 46px;

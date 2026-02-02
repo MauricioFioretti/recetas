@@ -419,9 +419,6 @@ async function apiPost_(payload) {
           return { titulo, autor, items, preparacion, createdAt };
         });
 
-      // más nueva a más vieja (append agrega abajo)
-      recetas.reverse();
-
       return { ok: true, recetas };
     }
 
